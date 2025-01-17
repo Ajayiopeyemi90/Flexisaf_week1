@@ -1,7 +1,8 @@
 import java.util.function.Predicate;
 
 public class PropertyCounter {
-    public static <T> int countByProperty(T[] array, Predicate<T> predicate) {
+
+    public static <T extends Number> int countByProperty(T[] array, Predicate<T> predicate) {
         if (array == null || predicate == null) {
             throw new IllegalArgumentException("Array and predicate must not be null");
         }
@@ -24,8 +25,8 @@ public class PropertyCounter {
         int primeCount = countByProperty(numbers, PropertyCounter::isPrime);
         System.out.println("Prime numbers count: " + primeCount);
 
-        String[] words = {"madam", "racecar", "121", "101", "level"};
-        int palindromeCount = countByProperty(words, PropertyCounter::isPalindrome);
+        Integer[] palindromes = {131, 141, 121, 101};
+        int palindromeCount = countByProperty(palindromes, PropertyCounter::isPalindrome);
         System.out.println("Palindromes count: " + palindromeCount);
     }
 
@@ -37,9 +38,9 @@ public class PropertyCounter {
         return true;
     }
 
-    private static boolean isPalindrome(String s) {
-        if (s == null) return false;
-        String reversed = new StringBuilder(s).reverse().toString();
-        return s.equals(reversed);
+    private static boolean isPalindrome(Number n) {
+        String str = n.toString();
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equals(reversed);
     }
 }
